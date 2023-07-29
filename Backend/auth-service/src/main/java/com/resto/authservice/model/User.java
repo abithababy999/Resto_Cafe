@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 import lombok.Data;
 
-
+@Entity
 public class User {
 	
 	@Id
