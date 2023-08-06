@@ -2,6 +2,8 @@ package com.resto.authservice.config;
 
 
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,20 +17,24 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.resto.authservice.service.MyUserDetailsService;
+import com.resto.authservice.service.JwtService;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true) // role based auth
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-
+	
+	
+	 @Autowired
+	 private JwtFilter jwtFilter;
 	@Autowired
-	private MyUserDetailsService userDetailsService;
+	private JwtService jwtService;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService);
+		auth.userDetailsService(jwtService);
 	}
 
 	@Bean(name = BeanIds.AUTHENTICATION_MANAGER)
@@ -41,14 +47,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors();
-        httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers("/api/loginservice/registerNewUser","/api/loginservice/registerNewChef").permitAll() 
-                .antMatchers(HttpHeaders.ALLOW).permitAll()
-                .anyRequest().authenticated();
-                
+    	httpSecurity.csrf().disable()
+        .authorizeRequests().antMatchers("/api/auth/authenticate", "/api/auth/registerNewUser").permitAll() 
+      
+//        .antMatchers(HttpHeaders.ALLOW).permitAll()
+        .anyRequest().authenticated();
+
+        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
-    // encrypting the password
+ 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
