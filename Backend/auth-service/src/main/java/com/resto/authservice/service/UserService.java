@@ -39,7 +39,7 @@ public class UserService {
 	            user.setPhoneNumber(userRegistration.getPhoneNumber());
 	            user.setPassword(getEncodedPassword(userRegistration.getPassword()));
 //	            user.setPassword(userRegistration.getPassword());
-	            user.setRole("user");
+	            user.setRole("ROLE_USER");
 	          return ResponseEntity.ok(userRepository.save(user));
 	        }
 	    }
@@ -61,7 +61,7 @@ public class UserService {
 	            user.setPhoneNumber(userRegistration.getPhoneNumber());
 	           user.setPassword(getEncodedPassword(userRegistration.getPassword()));
 	            user.setPassword(userRegistration.getPassword());
-	            user.setRole("chef");
+	            user.setRole("ROLE_CHEF");
 	          return ResponseEntity.ok(userRepository.save(user));
 	        }
 	    }

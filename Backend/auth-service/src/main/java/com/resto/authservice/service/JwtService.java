@@ -36,6 +36,7 @@ public class JwtService implements UserDetailsService {
 
 		if (temp.isPresent()) {
 			User user = temp.get();
+			
 			return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(),
 					user.getAuthorities());
 		} else {
