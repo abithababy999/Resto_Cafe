@@ -17,7 +17,7 @@ public class CartService {
 	@Autowired
     private CartRepository cartRepo;
 
-	 @Transactional
+	
 	 public Cart addCart(Cart c)
 	 {
 		 Cart exist = null;

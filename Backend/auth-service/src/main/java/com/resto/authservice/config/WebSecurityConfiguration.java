@@ -3,6 +3,7 @@ package com.resto.authservice.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.resto.authservice.service.JwtService;
@@ -31,6 +33,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		
+		
+		
 		auth.userDetailsService(jwtService);
 	}
 
@@ -42,9 +47,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
+	
 		httpSecurity.cors();
 		httpSecurity.csrf().disable().authorizeRequests()
-				.antMatchers("/api/auth/authenticate", "/api/auth/registerNewUser").permitAll()
+				.antMatchers("/api/auth/authenticate", "/api/auth/registerNewUser","/api/auth/chef/{id}").permitAll()
 				.antMatchers("/api/auth/registerNewChef", "/api/auth/deleteChef/{userName}","/api/auth/admin").hasRole("ADMIN")
 				.antMatchers("/api/auth/changePassword","/api/auth/chefanduser").hasAnyRole("USER", "CHEF").anyRequest().authenticated().and()
 				.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()

@@ -9,6 +9,6 @@ import com.resto.authservice.model.User;
 public interface UserRepository extends JpaRepository<User,Long>{
 	
 	Optional<User> findByUserName(String userName);
-	Optional<User> findByUserNameAndRole(String userName,String Role);
+	Optional<User> findByUserNameAndRole(String userName,String role);
 
 }

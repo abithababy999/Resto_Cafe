@@ -11,9 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@Entity
 
+@Entity
 @Table(name = "cart")
 public class Cart {
 	@Id
@@ -36,6 +35,7 @@ public class Cart {
 	private String status;
     private Long quantity;
 	private Long total;
+	
 	public Long getCartId() {
 		return cartId;
 	}

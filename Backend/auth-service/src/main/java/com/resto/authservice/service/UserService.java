@@ -67,7 +67,7 @@ public class UserService {
 	    }
 	public ResponseEntity<String> deleteChef(String userName)
 	{
-		Optional<User> chef=userRepository.findByUserNameAndRole(userName,"chef");
+		Optional<User> chef=userRepository.findByUserNameAndRole(userName,"ROLE_CHEF");
 		if(!chef.isPresent())
 		{
 			return ResponseEntity.noContent().build();
@@ -97,6 +97,17 @@ public class UserService {
 	        }
 		 return ResponseEntity.badRequest().body("Incorrect old password");
 
+	}
+	
+	public ResponseEntity<User> findChef(Long id){
+		Optional<User> temp=userRepository.findById(id);
+		if(temp.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		return ResponseEntity.ok(temp.get());
+		
+		
 	}
 	
 	

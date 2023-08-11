@@ -8,17 +8,17 @@ public class InventoryRequest {
 	private Long chef_id;
 	private String item_name;
 	private Integer quantity;
-	private InventoryStatus status;
+	
 	
 	public InventoryRequest() {
 		
 	}
-	public InventoryRequest(Long chef_id, String item_name, Integer quantity, InventoryStatus status) {
+	public InventoryRequest(Long chef_id, String item_name, Integer quantity) {
 		super();
 		this.chef_id = chef_id;
 		this.item_name = item_name;
 		this.quantity = quantity;
-		this.status = status;
+		
 	}
 	public Long getChef_id() {
 		return chef_id;
@@ -38,12 +38,7 @@ public class InventoryRequest {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
-	public InventoryStatus getStatus() {
-		return status;
-	}
-	public void setStatus(InventoryStatus status) {
-		this.status = status;
-	}
+
 	
 	
 

@@ -1,5 +1,7 @@
 package com.resto.inventoryservice.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,21 +14,35 @@ public class Inventory {
 	private Long id;
 	private String itemName;
 	private Integer quantity;
-	private Long chef_id;
+	private Long chefId;
 	private InventoryStatus status;
-	
+	 private LocalDateTime timestamp;
 	public Inventory() {
 		
 	}
 	
 	
-	public Inventory(Long id, String itemName, Integer quantity, Long chef_id, InventoryStatus status) {
+
+
+	public Inventory(Long id, String itemName, Integer quantity, Long chef_id, InventoryStatus status,
+			LocalDateTime timestamp) {
 		super();
 		this.id = id;
 		this.itemName = itemName;
 		this.quantity = quantity;
-		this.chef_id = chef_id;
+		this.chefId = chef_id;
 		this.status = status;
+		this.timestamp = timestamp;
+	}
+
+
+	public LocalDateTime getTimestamp() {
+		return timestamp;
+	}
+
+
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
 	}
 
 
@@ -49,10 +65,10 @@ public class Inventory {
 		this.quantity = quantity;
 	}
 	public Long getChef_id() {
-		return chef_id;
+		return chefId;
 	}
 	public void setChef_id(Long chef_id) {
-		this.chef_id = chef_id;
+		this.chefId = chef_id;
 	}
 	public InventoryStatus getStatus() {
 		return status;

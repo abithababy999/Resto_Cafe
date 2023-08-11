@@ -24,6 +24,7 @@ import com.resto.authservice.service.UserService;
 
 @RestController
 @RequestMapping("/api/auth")
+
 public class UserController {
 	Logger logger = LoggerFactory.getLogger(UserController.class);
 	@Autowired
@@ -61,6 +62,11 @@ public class UserController {
 		return jwtService.createJwtToken(jwtRequest);
 	}
 	
+	@GetMapping("/chef/{id}")
+	public ResponseEntity<User> findChef(@PathVariable Long id){
+		return userService.findChef(id);
+		
+	}
 	@GetMapping("/chef")
 	@PreAuthorize("hasRole('CHEF')")
 	public String seeChef() {
@@ -78,5 +84,7 @@ public class UserController {
 	public String seeUserandChef() {
 		return "This is chef and user";
 	}
+	
+	
 
 }
