@@ -6,10 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.resto.foodservice.dto.FoodItemRequest;
+import com.resto.foodservice.dto.FoodItemResponse;
 import com.resto.foodservice.dto.RatingRequest;
 import com.resto.foodservice.model.FoodItem;
 import com.resto.foodservice.model.Rating;
@@ -76,9 +79,28 @@ public class FoodService {
 		
 	}
 	
-	public ResponseEntity<List<FoodItemResponse>> getAllFood(){
-		foodRepository.findAll();
+	public ResponseEntity<FoodItemResponse> getAllFood(Pageable page){
+		FoodItemResponse foodItemResponse=new FoodItemResponse();
+		Page<FoodItem>pagedFoodItems=foodRepository.findAll(page);
+
+		
+		List<FoodItem>foodItems=pagedFoodItems.getContent().stream().map(x->setRatingScore(x)).toList();
+		
+	
+		foodItemResponse.setFooditems(foodItems);
+		foodItemResponse.setTotalElements(pagedFoodItems.getTotalElements());
+		foodItemResponse.setTotalPages(pagedFoodItems.getTotalPages());
+	
+		return ResponseEntity.ok(foodItemResponse);
 		
 	}
+	
+	private FoodItem setRatingScore(FoodItem foodItem){
+		Short average=(short)foodItem.getRatings().stream().mapToDouble(Rating::getRatingScore).average().orElse(0.0);
+		foodItem.setRatingScore(average);
+		return foodItem;
+		
+	}
+	
 
 }

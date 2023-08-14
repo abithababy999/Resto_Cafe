@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="food")
@@ -27,6 +28,8 @@ public class FoodItem {
 	private String image;
 	private String category;
 	private String dietry;
+	@Transient
+	private Short ratingScore;
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Rating> ratings=new ArrayList<Rating>();
 	
@@ -49,6 +52,18 @@ public class FoodItem {
 		this.image = image;
 		this.category = category;
 		this.dietry = dietry;
+	}
+
+
+
+	public Short getRatingScore() {
+		return ratingScore;
+	}
+
+
+
+	public void setRatingScore(Short ratingScore) {
+		this.ratingScore = ratingScore;
 	}
 
 

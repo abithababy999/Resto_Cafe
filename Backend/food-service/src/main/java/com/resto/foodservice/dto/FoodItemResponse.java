@@ -1,87 +1,64 @@
 package com.resto.foodservice.dto;
 
+import java.util.List;
+
+import com.resto.foodservice.model.FoodItem;
+
 public class FoodItemResponse {
-	private Long foodId;
-	private String name;
-	private String description;
-	private Boolean availability;
-	private Double price;
-	private String image;
-	private String category;
-	private String dietry;
-	private Short ratingScore;
+	
+	private List<FoodItem> fooditems;
+	private Integer currentPage;
+	private Integer totalPages;
+	private Long totalElements;
 	
 	public FoodItemResponse() {
 		
 	}
 	
-	public FoodItemResponse(Long foodId, String name, String description, Boolean availability, Double price,
-			String image, String category, String dietry, Short ratingScore) {
+
+	public FoodItemResponse(List<FoodItem> fooditems, Integer currentPage, Integer totalPages, Long totalElements) {
 		super();
-		this.foodId = foodId;
-		this.name = name;
-		this.description = description;
-		this.availability = availability;
-		this.price = price;
-		this.image = image;
-		this.category = category;
-		this.dietry = dietry;
-		this.ratingScore = ratingScore;
+		this.fooditems = fooditems;
+		this.currentPage = currentPage;
+		this.totalPages = totalPages;
+		this.totalElements = totalElements;
 	}
-	public Long getFoodId() {
-		return foodId;
+
+
+	public List<FoodItem> getFooditems() {
+		return fooditems;
 	}
-	public void setFoodId(Long foodId) {
-		this.foodId = foodId;
+
+	public void setFooditems(List<FoodItem> fooditems) {
+		this.fooditems = fooditems;
 	}
-	public String getName() {
-		return name;
+
+	public Integer getCurrentPage() {
+		return currentPage;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setCurrentPage(Integer currentPage) {
+		this.currentPage = currentPage;
 	}
-	public String getDescription() {
-		return description;
+
+	public Integer getTotalPages() {
+		return totalPages;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+
+	public void setTotalPages(int i) {
+		this.totalPages = i;
 	}
-	public Boolean getAvailability() {
-		return availability;
+
+	public Long getTotalElements() {
+		return totalElements;
 	}
-	public void setAvailability(Boolean availability) {
-		this.availability = availability;
+
+	public void setTotalElements(Long totalElements) {
+		this.totalElements = totalElements;
 	}
-	public Double getPrice() {
-		return price;
-	}
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-	public String getImage() {
-		return image;
-	}
-	public void setImage(String image) {
-		this.image = image;
-	}
-	public String getCategory() {
-		return category;
-	}
-	public void setCategory(String category) {
-		this.category = category;
-	}
-	public String getDietry() {
-		return dietry;
-	}
-	public void setDietry(String dietry) {
-		this.dietry = dietry;
-	}
-	public Short getRatingScore() {
-		return ratingScore;
-	}
-	public void setRatingScore(Short ratingScore) {
-		this.ratingScore = ratingScore;
-	}
+	
+	
+	
 	
 	
 
