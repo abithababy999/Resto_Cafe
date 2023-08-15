@@ -37,6 +37,8 @@ public class FoodService {
 		foodItem.setDietry(foodItemRequest.getDietry());
 		foodItem.setImage(foodItemRequest.getImage());
 		foodItem.setRatings(new ArrayList<Rating>());
+		foodItem.setPrice(foodItemRequest.getPrice());
+		setRatingScore(foodItem);
 		
 		return ResponseEntity.ok(foodRepository.save(foodItem));
 	}
@@ -71,9 +73,17 @@ public class FoodService {
 	}
 	
 	public ResponseEntity<Rating> addRating(RatingRequest ratingRequest){
+		Long foodId=ratingRequest.getFoodItem();
+		Optional<FoodItem>temp=foodRepository.findById(foodId);
+		if(temp.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		
 		Rating rating =new Rating();
 		rating.setRatingScore(ratingRequest.getRatingScore());
-		rating.setFoodItem(ratingRequest.getFoodItem());
+		
+		rating.setFoodItem(temp.get());
 		rating.setRatingDate(LocalDateTime.now());
 		return ResponseEntity.ok(ratingRepository.save(rating));
 		
@@ -93,8 +103,17 @@ public class FoodService {
 	
 		return ResponseEntity.ok(foodItemResponse);
 		
+		
 	}
 	
+	public ResponseEntity<FoodItem>getFoodByid(Long id){
+		Optional<FoodItem>temp =foodRepository.findById(id);
+		if(temp.isEmpty())
+			return ResponseEntity.notFound().build();
+		FoodItem foodItem=temp.get();
+		setRatingScore(foodItem);
+		return ResponseEntity.ok(foodItem);
+	}
 	private FoodItem setRatingScore(FoodItem foodItem){
 		Short average=(short)foodItem.getRatings().stream().mapToDouble(Rating::getRatingScore).average().orElse(0.0);
 		foodItem.setRatingScore(average);

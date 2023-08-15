@@ -18,7 +18,7 @@ public class Rating {
 	private Short ratingScore;
 	private LocalDateTime ratingDate;
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn//referencedColumnName="food_id")
+	@JoinColumn(name="food_item_id")//referencedColumnName="food_id")
 	private FoodItem foodItem;
 	public Rating()
 	{

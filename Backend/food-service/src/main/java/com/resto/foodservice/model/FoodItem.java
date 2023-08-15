@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="food")
 public class FoodItem {
@@ -30,7 +32,8 @@ public class FoodItem {
 	private String dietry;
 	@Transient
 	private Short ratingScore;
-	@OneToMany(cascade=CascadeType.ALL)
+	@JsonIgnore
+	@OneToMany(mappedBy="foodItem",cascade=CascadeType.ALL)
 	private List<Rating> ratings=new ArrayList<Rating>();
 	
 	public FoodItem()
