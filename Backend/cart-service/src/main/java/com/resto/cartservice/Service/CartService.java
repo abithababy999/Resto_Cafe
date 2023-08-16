@@ -3,117 +3,98 @@ package com.resto.cartservice.Service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.resto.cartservice.Repository.CartRepository;
+import com.resto.cartservice.dto.CartItemResponse;
+import com.resto.cartservice.dto.CartRequest;
+import com.resto.cartservice.dto.FoodItem;
 import com.resto.cartservice.model.Cart;
+
 
 @Service
 public class CartService {
 	
 	@Autowired
     private CartRepository cartRepo;
-
 	
-	 public Cart addCart(Cart c)
-	 {
-		 Cart exist = null;
-	     Optional<Cart> opt = cartRepo.findByFoodId(c.getFoodId());
-	     if (opt.isPresent())
-	     {
-	    	 exist = opt.get();
-	         exist.setQuantity(exist.getQuantity() + 1);
-	         exist.setTotal(exist.getQuantity() * c.getPrice());
-	         return cartRepo.save(exist);
-	     }
-	     else
-	     {
-	         c.setStatus("In progress");
-	         c.setQuantity(1L);
-	         c.setTotal(c.getQuantity() * c.getPrice());
-	         Cart saveCart = cartRepo.save(c);
-	         System.out.println("added");
-	         return saveCart;
-	     }
-	 }
-	 @Transactional
-	    public void deleteCartByCartIdAndUserId(Long cartid, Long customerId) {
-	        cartRepo.deleteByCartidAndUserid(cartid, customerId);
-	        System.out.println("deleted");
-	    }
-	 
-	 
-	 public Cart iupdateQuantity(Long cartId) {
-	        Cart c = cartRepo.findById(cartId).orElse(null);
-	        if(c!=null){
-	            c.setQuantity(c.getQuantity() + 1);
-	            c.setTotal(c.getQuantity() * c.getPrice());
-	        }
-	        cartRepo.save(c);
-	        return c;
-	    }
-	 
-	 public Cart updateQuantity(Long cartId) {
-	        Cart c = cartRepo.findById(cartId).orElse(null);
-	        if(c!=null){
-	            if(c.getQuantity()>1) {
-	                c.setQuantity(c.getQuantity() - 1);
-	                c.setTotal(c.getQuantity() * c.getPrice());
-	            }
-	        }
-	        cartRepo.save(c);
-	        return c;
-	    }
+	
+	public List<Cart> getAllCartItemsByUser(Long id){
+		return cartRepo.findAllByCustomerId(id);
+	}
+	
+	public List<Cart>addCart(CartRequest cartRequest){
+		Optional<Cart> temp=cartRepo.findByCustomerIdAndFoodId(cartRequest.getCustomerId(),cartRequest.getFoodId());
+		if(temp.isEmpty()) {
+			Cart item =new Cart();
+			item.setFoodId(cartRequest.getFoodId());
+			item.setCustomerId(cartRequest.getCustomerId());
+			item.setQuantity(1);
+			cartRepo.save(item);
+		}else {
+			Cart item=temp.get();
+			item.setQuantity(item.getQuantity()+1);
+			cartRepo.save(item);
+			
+		}
+		return getAllCartItemsByUser(cartRequest.getCustomerId());
+	
+	}
+	
+	public List<Cart> removeFromCart(CartRequest cartRequest){
+		Optional<Cart> temp=cartRepo.findByCustomerIdAndFoodId(cartRequest.getCustomerId(),cartRequest.getFoodId());
+		if(temp.isPresent()) {
+			Cart item=temp.get();
+			cartRepo.delete(item);
+		}
+		
+		return getAllCartItemsByUser(cartRequest.getCustomerId());
+	}
+	
+	public List<Cart> updateQuantity(CartRequest cartRequest){
+		Optional<Cart> temp=cartRepo.findByCustomerIdAndFoodId(cartRequest.getCustomerId(),cartRequest.getFoodId());
+		if(temp.isPresent()) {
+			Cart item=temp.get();
+			item.setQuantity(cartRequest.getQuantity());
+			cartRepo.save(item);
+			
+		}
+		
+
+		return getAllCartItemsByUser(cartRequest.getCustomerId());
+		
+	}
+	
+	public Boolean clearCart(Long userId) {
+	
+		List<Cart> cartItems=getAllCartItemsByUser(userId);
+		cartRepo.deleteAll(cartItems);
+		
+		
+		return true;
+	}
+	
+	
+
 
 	    
-
-//	    public Cart updateQuan(Cart cart) {
-//	        Cart exist = null;
-//	        Optional<Cart> existing = cartRepo.findByProdid(cart.getFoodId());
-//	        if(existing.isPresent()){
-//	            exist = existing.get();
-//	            exist.setQuantity(cart.getQuantity()+1);
-//	        }
-//	        return cartRepo.save(exist);
-//	    }
-
-
-	    public Long getTotalAmount(Long cartId) {
-	        Cart c = null;
-	        Optional<Cart> opt = cartRepo.findById(cartId);
-	        if(opt.isPresent()){
-	            c = opt.get();
-	        }
-	        return c.getTotal();
-	    }
-
-	    public Cart updateStatus(Long cartId) {
-	        Cart c = null;
-	        Optional<Cart> opt = cartRepo.findByFoodId(cartId);
-	        if(opt.isPresent()){
-	            c = opt.get();
-	            c.setStatus("Ready");
-	        }
-	        return cartRepo.save(c);
-	    }
-
-	    public List<Cart> getAllOrders() {
-	        return cartRepo.findAll();
-	    }
-
-	    public List<Cart> getByStatus() {
-	        return cartRepo.getByStatus();
-	    }
-
-	    public void deleteByUserId(Long customerId) {
-	        cartRepo.deleteByCustomerId(customerId);
-	    }
-
-	    public void deleteByCartId(Long cartId) {
-	        cartRepo.deleteByCartid(cartId);
+	public FoodItem getFoodItem(Cart cart) {
+	    	try {
+	    	 	RestTemplate restTemplate = new RestTemplate();
+				ResponseEntity<FoodItem> response =restTemplate.getForEntity("http://localhost:8089/api/foodservice/"+cart.getFoodId(), FoodItem.class);
+				FoodItem item=response.getBody();
+				if(item== null) {
+					return null;
+				}
+				
+				return item;
+	    	}catch (Exception ex) {
+	    		return null;
+	    	}
+	   
 	    }
 
 

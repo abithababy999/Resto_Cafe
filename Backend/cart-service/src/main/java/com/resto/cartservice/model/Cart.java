@@ -1,6 +1,6 @@
 package com.resto.cartservice.model;
 
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,24 +17,27 @@ import lombok.NoArgsConstructor;
 public class Cart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cartId")
 	private Long cartId;
-	@Column(name = "customerId")
-	private String customerId;
 	
+	private Long customerId;
 	
-	@Column(name = "foodId")
 	private Long foodId;
 	
-	@Column(name = "foodname")
-	private String foodname;
+    private Integer quantity;
+    
+    
+    public Cart() {
+    	
+    }
 	
-	@Column(name = "price")
-	private Long price;
-
-	private String status;
-    private Long quantity;
-	private Long total;
+	public Cart(Long cartId, Long customerId, Long foodId, Integer quantity) {
+		super();
+		this.cartId = cartId;
+		this.customerId = customerId;
+		this.foodId = foodId;
+		
+		this.quantity = quantity;
+	}
 	
 	public Long getCartId() {
 		return cartId;
@@ -42,10 +45,10 @@ public class Cart {
 	public void setCartId(Long cartId) {
 		this.cartId = cartId;
 	}
-	public String getCustomerId() {
+	public Long getCustomerId() {
 		return customerId;
 	}
-	public void setCustomerId(String customerId) {
+	public void setCustomerId(Long customerId) {
 		this.customerId = customerId;
 	}
 	public Long getFoodId() {
@@ -54,49 +57,16 @@ public class Cart {
 	public void setFoodId(Long foodId) {
 		this.foodId = foodId;
 	}
-	public String getFoodname() {
-		return foodname;
-	}
-	public void setFoodname(String foodname) {
-		this.foodname = foodname;
-	}
-	public Long getPrice() {
-		return price;
-	}
-	public void setPrice(Long price) {
-		this.price = price;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	public Long getQuantity() {
+
+
+	public Integer getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(Long quantity) {
+
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
-	public Long getTotal() {
-		return total;
-	}
-	public void setTotal(Long total) {
-		this.total = total;
-	}
-	public Cart(Long cartId, String customerId, Long foodId, String foodname, Long price, String status, Long quantity,
-			Long total) {
-		super();
-		this.cartId = cartId;
-		this.customerId = customerId;
-		this.foodId = foodId;
-		this.foodname = foodname;
-		this.price = price;
-		this.status = status;
-		this.quantity = quantity;
-		this.total = total;
-	}
-	
+
 	
 
 }

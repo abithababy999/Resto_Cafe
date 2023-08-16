@@ -34,10 +34,12 @@ public class FoodService {
 		foodItem.setName(foodItemRequest.getName());
 		foodItem.setDescription(foodItemRequest.getDescription());
 		foodItem.setAvailability(foodItemRequest.getAvailability());
-		foodItem.setCategory(foodItemRequest.getCategory());
-		foodItem.setDietry(foodItemRequest.getDietry());
+		foodItem.setCategory(foodItemRequest.getCategory().toUpperCase());
+		foodItem.setDietry(foodItemRequest.getDietry().toUpperCase());
 		foodItem.setImage(foodItemRequest.getImage());
 		foodItem.setRatings(new ArrayList<Rating>());
+		foodItem.setPrice(foodItemRequest.getPrice());
+		setRatingScore(foodItem);
 		
 		return ResponseEntity.ok(foodRepository.save(foodItem));
 	}
@@ -63,8 +65,8 @@ public class FoodService {
 		foodItem.setName(foodItemRequest.getName());
 		foodItem.setDescription(foodItemRequest.getDescription());
 		foodItem.setAvailability(foodItemRequest.getAvailability());
-		foodItem.setCategory(foodItemRequest.getCategory());
-		foodItem.setDietry(foodItemRequest.getDietry());
+		foodItem.setCategory(foodItemRequest.getCategory().toUpperCase());
+		foodItem.setDietry(foodItemRequest.getDietry().toUpperCase());
 		foodItem.setImage(foodItemRequest.getImage());
 	
 		
@@ -72,9 +74,17 @@ public class FoodService {
 	}
 	
 	public ResponseEntity<Rating> addRating(RatingRequest ratingRequest){
+		Long foodId=ratingRequest.getFoodItem();
+		Optional<FoodItem>temp=foodRepository.findById(foodId);
+		if(temp.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		
 		Rating rating =new Rating();
 		rating.setRatingScore(ratingRequest.getRatingScore());
-		rating.setFoodItem(ratingRequest.getFoodItem());
+		
+		rating.setFoodItem(temp.get());
 		rating.setRatingDate(LocalDateTime.now());
 		return ResponseEntity.ok(ratingRepository.save(rating));
 		
@@ -83,21 +93,50 @@ public class FoodService {
 	public ResponseEntity<FoodItemResponse> getAllFood(Pageable page){
 		FoodItemResponse foodItemResponse=new FoodItemResponse();
 		Page<FoodItem>pagedFoodItems=foodRepository.findAll(page);
-
 		
+<<<<<<< HEAD
 		List<FoodItem>foodItems=((Streamable<FoodItem>) pagedFoodItems.getContent().stream().map(x->setRatingScore(x))).toList();
-		
-	
+=======
+		List<FoodItem>foodItems=pagedFoodItems.getContent().stream().map(x->setRatingScore(x)).toList();
 		foodItemResponse.setFooditems(foodItems);
 		foodItemResponse.setTotalElements(pagedFoodItems.getTotalElements());
 		foodItemResponse.setTotalPages(pagedFoodItems.getTotalPages());
 	
 		return ResponseEntity.ok(foodItemResponse);
 		
+>>>>>>> 5318aa4cfc740a78136df01971480385ae7a8754
+		
 	}
 	
+	
+	public ResponseEntity<FoodItemResponse> getFoodByCategory(Pageable page,String category){
+		FoodItemResponse foodItemResponse=new FoodItemResponse();
+Page<FoodItem>pagedFoodItems=foodRepository.findAllByCategory(page, category);
+		
+		List<FoodItem>foodItems=pagedFoodItems.getContent().stream().map(x->setRatingScore(x)).toList();
+		foodItemResponse.setFooditems(foodItems);
+		foodItemResponse.setTotalElements(pagedFoodItems.getTotalElements());
+		foodItemResponse.setTotalPages(pagedFoodItems.getTotalPages());
+	
+		return ResponseEntity.ok(foodItemResponse);
+	}
+	
+    public List<FoodItem> searchFoodItemsWithFilters(String category,String dietry, String searchTerm) {
+        return foodRepository.findByFilters(category.toUpperCase(),dietry.toUpperCase(),searchTerm);
+    }
+	
+	public ResponseEntity<FoodItem>getFoodByid(Long id){
+		Optional<FoodItem>temp =foodRepository.findById(id);
+		if(temp.isEmpty())
+			return ResponseEntity.notFound().build();
+		FoodItem foodItem=temp.get();
+		setRatingScore(foodItem);
+		return ResponseEntity.ok(foodItem);
+	}
+	
+	
 	private FoodItem setRatingScore(FoodItem foodItem){
-		Short average=(short)foodItem.getRatings().stream().mapToDouble(Rating::getRatingScore).average().orElse(0.0);
+		Double average=foodItem.getRatings().stream().mapToDouble(Rating::getRatingScore).average().orElse(0.0);
 		foodItem.setRatingScore(average);
 		return foodItem;
 		
