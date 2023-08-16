@@ -26,7 +26,7 @@ import com.resto.authservice.service.UserService;
 @RequestMapping("/api/auth")
 
 public class UserController {
-	Logger logger = LoggerFactory.getLogger(UserController.class);
+
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -40,7 +40,7 @@ public class UserController {
 	@PostMapping("/registerNewChef")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<User> registerNewChef(@RequestBody UserRegistrationRequest userRegistrationRequest) {
-		logger.debug("created user");
+		
 		return userService.newChefRegister(userRegistrationRequest);
 	}
 
@@ -58,7 +58,7 @@ public class UserController {
 
 	@PostMapping("/authenticate")
 	public JwtResponse createJwtToken(@RequestBody JwtRequest jwtRequest) throws Exception {
-		logger.debug("IN authenticate", jwtRequest);
+		
 		return jwtService.createJwtToken(jwtRequest);
 	}
 	

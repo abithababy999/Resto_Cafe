@@ -4,14 +4,14 @@ public class CartRequest {
 	
 	private Long FoodId;
 	private Long CustomerId;
-	private Short quantity;
+	private Integer quantity;
 	
 	
 	
-	public Short getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(Short quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 	public Long getFoodId() {

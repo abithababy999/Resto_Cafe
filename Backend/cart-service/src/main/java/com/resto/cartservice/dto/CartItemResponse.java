@@ -3,7 +3,7 @@ package com.resto.cartservice.dto;
 public class CartItemResponse {
 	
 	private FoodItem foodItem;
-	private Short quantity;
+	private Integer quantity;
 	
 	public CartItemResponse() {
 		
@@ -14,10 +14,10 @@ public class CartItemResponse {
 	public void setFoodItem(FoodItem foodItem) {
 		this.foodItem = foodItem;
 	}
-	public Short getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(Short quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 	

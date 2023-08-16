@@ -8,17 +8,75 @@ public class OrderRequest {
 	
 	private Long CustomerId;
 	private List<CartItem> cartItems;
+	private Boolean dineIn;
+	private Boolean paid;
 	
 	public OrderRequest() {
 		
 	}
 	
 	
-	public OrderRequest(Long customerId, List<CartItem> orderItems) {
+	
+
+
+	public OrderRequest(Long customerId, List<CartItem> cartItems, Boolean dineIn, Boolean paid) {
 		super();
 		CustomerId = customerId;
-		 cartItems = orderItems;
+		this.cartItems = cartItems;
+		this.dineIn = dineIn;
+		this.paid = paid;
 	}
+
+
+
+
+
+	public List<CartItem> getCartItems() {
+		return cartItems;
+	}
+
+
+
+
+
+	public void setCartItems(List<CartItem> cartItems) {
+		this.cartItems = cartItems;
+	}
+
+
+
+
+
+	public Boolean getDineIn() {
+		return dineIn;
+	}
+
+
+
+
+
+	public void setDineIn(Boolean dineIn) {
+		this.dineIn = dineIn;
+	}
+
+
+
+
+
+	public Boolean getPaid() {
+		return paid;
+	}
+
+
+
+
+
+	public void setPaid(Boolean paid) {
+		this.paid = paid;
+	}
+
+
+
 
 
 	public Long getCustomerId() {

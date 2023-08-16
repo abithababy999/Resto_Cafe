@@ -4,21 +4,21 @@ import com.resto.foodservice.model.FoodItem;
 
 public class RatingRequest {
 
-	private Short ratingScore;
+	private Double ratingScore;
 	private Long foodItem;
 	
 	public RatingRequest() {
 		
 	}
-	public RatingRequest(Short ratingScore, Long foodItem) {
+	public RatingRequest(Double ratingScore, Long foodItem) {
 		super();
 		this.ratingScore = ratingScore;
 		this.foodItem = foodItem;
 	}
-	public Short getRatingScore() {
+	public Double getRatingScore() {
 		return ratingScore;
 	}
-	public void setRatingScore(Short ratingScore) {
+	public void setRatingScore(Double ratingScore) {
 		this.ratingScore = ratingScore;
 	}
 	public Long getFoodItem() {

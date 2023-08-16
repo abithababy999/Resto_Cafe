@@ -1,5 +1,6 @@
 package com.resto.foodservice.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.UpdateTimestamp;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -24,14 +27,15 @@ public class FoodItem {
 	private Long foodId;
 	private String name;
 	private String description;
-
 	private Boolean availability;
 	private Double price;
 	private String image;
 	private String category;
 	private String dietry;
+	@UpdateTimestamp
+	private LocalDateTime updatedAt;
 	@Transient
-	private Short ratingScore;
+	private Double ratingScore;
 	@JsonIgnore
 	@OneToMany(mappedBy="foodItem",cascade=CascadeType.ALL)
 	private List<Rating> ratings=new ArrayList<Rating>();
@@ -43,29 +47,17 @@ public class FoodItem {
 	
 	
 
-	public FoodItem(Long foodId, String name, String description, Boolean availability,
-			Double price, String image, String category, String dietry) {
-		super();
-		this.foodId = foodId;
-		this.name = name;
-		this.description = description;
-		this.ratings = ratings;
-		this.availability = availability;
-		this.price = price;
-		this.image = image;
-		this.category = category;
-		this.dietry = dietry;
-	}
 
 
 
-	public Short getRatingScore() {
+
+	public Double getRatingScore() {
 		return ratingScore;
 	}
 
 
 
-	public void setRatingScore(Short ratingScore) {
+	public void setRatingScore(Double ratingScore) {
 		this.ratingScore = ratingScore;
 	}
 
@@ -143,6 +135,7 @@ public class FoodItem {
 		this.dietry = dietry;
 	}
 	 
+	
 	public void addRating(Rating rating) {
 		ratings.add(rating);
 		rating.setFoodItem(this);

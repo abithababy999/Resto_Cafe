@@ -32,11 +32,12 @@ public class CartService {
 			Cart item =new Cart();
 			item.setFoodId(cartRequest.getFoodId());
 			item.setCustomerId(cartRequest.getCustomerId());
-			item.setQuantity((short)1);
+			item.setQuantity(1);
 			cartRepo.save(item);
 		}else {
 			Cart item=temp.get();
-			item.setQuantity((short) (item.getQuantity()+1));
+			item.setQuantity(item.getQuantity()+1);
+			cartRepo.save(item);
 			
 		}
 		return getAllCartItemsByUser(cartRequest.getCustomerId());
@@ -65,6 +66,15 @@ public class CartService {
 
 		return getAllCartItemsByUser(cartRequest.getCustomerId());
 		
+	}
+	
+	public Boolean clearCart(Long userId) {
+	
+		List<Cart> cartItems=getAllCartItemsByUser(userId);
+		cartRepo.deleteAll(cartItems);
+		
+		
+		return true;
 	}
 	
 	

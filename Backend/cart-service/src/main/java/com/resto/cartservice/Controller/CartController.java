@@ -47,10 +47,15 @@ public class CartController {
 		List<Cart> carts=cartServ.removeFromCart(cartRequest);
 		return ResponseEntity.ok(getResponse(carts));
 	}
-	@PutMapping("/{}")
+	@PutMapping("/")
 	public ResponseEntity<List<CartItemResponse>> getCart(@RequestBody CartRequest cartRequest){
 		List<Cart> carts=cartServ.updateQuantity(cartRequest);
 		return ResponseEntity.ok(getResponse(carts));
+	}
+	
+	@DeleteMapping("/{userId}")
+	public ResponseEntity<Boolean> clearCart(@PathVariable Long userId){
+		return ResponseEntity.ok(cartServ.clearCart(userId));
 	}
 	
 	

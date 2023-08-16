@@ -11,6 +11,7 @@ public class FoodItem {
 	private String category;
 	private String dietry;
 	private Short ratingScore;
+	
 	public Long getFoodId() {
 		return foodId;
 	}

@@ -1,6 +1,6 @@
 package com.resto.cartservice.model;
 
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,14 +23,14 @@ public class Cart {
 	
 	private Long foodId;
 	
-    private Short quantity;
+    private Integer quantity;
     
     
     public Cart() {
     	
     }
 	
-	public Cart(Long cartId, Long customerId, Long foodId, Short quantity) {
+	public Cart(Long cartId, Long customerId, Long foodId, Integer quantity) {
 		super();
 		this.cartId = cartId;
 		this.customerId = customerId;
@@ -59,13 +59,11 @@ public class Cart {
 	}
 
 
-
-
-	public Short getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(Short quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 

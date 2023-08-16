@@ -30,12 +30,13 @@ public class OrderService {
 		order.setCustomerId(orderRequest.getCustomerId());
 		List<OrderItem> orderItems=convertCartToOrder(orderRequest.getOrderItems(),order);
 		order.setCartItems(orderItems);
-		order.setDineIn(true);
+		order.setDineIn(orderRequest.getDineIn());
+		order.setPaid(orderRequest.getPaid());
 		order.setTimeStamp(LocalDateTime.now());
 		order.setStatus(OrderStatus.PENDING);
 	
 		order=orderRepo.save(order);
-	
+		clearCart(orderRequest.getCustomerId());
 	
 		return order;
 		
@@ -102,6 +103,22 @@ public class OrderService {
 	    		return null;
 	    	}
 		
+	}
+	
+	private Boolean clearCart(Long userId) {
+
+		try {
+    	 	RestTemplate restTemplate = new RestTemplate();
+			ResponseEntity<Boolean> response =restTemplate.getForEntity("http://localhost:8089/api/v1/cart/"+userId, Boolean.class);
+			Boolean item=response.getBody();
+			if(item== null) {
+				return null;
+			}
+			
+			return item;
+    	}catch (Exception ex) {
+    		return null;
+    	}
 	}
 	
 	

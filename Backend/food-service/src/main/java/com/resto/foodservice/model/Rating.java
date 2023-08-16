@@ -15,10 +15,10 @@ public class Rating {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	private Short ratingScore;
+	private Double ratingScore;
 	private LocalDateTime ratingDate;
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="food_item_id")//referencedColumnName="food_id")
+	@JoinColumn(name="food_item_id")
 	private FoodItem foodItem;
 	public Rating()
 	{
@@ -26,7 +26,7 @@ public class Rating {
 	}
 		
 
-	public Rating(Long id, Short ratingScore, LocalDateTime ratingDate, FoodItem foodItem) {
+	public Rating(Long id, Double ratingScore, LocalDateTime ratingDate, FoodItem foodItem) {
 		super();
 		this.id = id;
 		this.ratingScore = ratingScore;
@@ -39,10 +39,10 @@ public class Rating {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Short getRatingScore() {
+	public Double getRatingScore() {
 		return ratingScore;
 	}
-	public void setRatingScore(Short ratingScore) {
+	public void setRatingScore(Double ratingScore) {
 		this.ratingScore = ratingScore;
 	}
 	public LocalDateTime getRatingDate() {
