@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.util.Streamable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -84,7 +85,7 @@ public class FoodService {
 		Page<FoodItem>pagedFoodItems=foodRepository.findAll(page);
 
 		
-		List<FoodItem>foodItems=pagedFoodItems.getContent().stream().map(x->setRatingScore(x)).toList();
+		List<FoodItem>foodItems=((Streamable<FoodItem>) pagedFoodItems.getContent().stream().map(x->setRatingScore(x))).toList();
 		
 	
 		foodItemResponse.setFooditems(foodItems);

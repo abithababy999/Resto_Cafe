@@ -30,7 +30,7 @@ public class JwtService implements UserDetailsService {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
-	@Override
+
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<User> temp = userRepository.findByUserName(username);
 
@@ -49,7 +49,7 @@ public class JwtService implements UserDetailsService {
 		
 		String userPassword = jwtRequest.getUserPassword();
 		authenticate(userName, userPassword);
-
+         
 		UserDetails userDetails = loadUserByUsername(userName);
 		String newGeneratedToken = jwtUtil.generateToken(userDetails);
 
