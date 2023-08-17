@@ -1,4 +1,4 @@
-package com.resto.inventoryservice.config;
+package com.resto.orderservice.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;

@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,13 +19,14 @@ import com.resto.authservice.dto.JwtRequest;
 import com.resto.authservice.dto.JwtResponse;
 import com.resto.authservice.dto.PasswordRequest;
 import com.resto.authservice.dto.UserRegistrationRequest;
+import com.resto.authservice.dto.UserResponse;
 import com.resto.authservice.model.User;
 import com.resto.authservice.service.JwtService;
 import com.resto.authservice.service.UserService;
 
 @RestController
 @RequestMapping("/api/auth")
-
+@CrossOrigin("*")
 public class UserController {
 
 	@Autowired
@@ -67,6 +69,12 @@ public class UserController {
 		return userService.findChef(id);
 		
 	}
+	@GetMapping("/user/{userName}")
+	public ResponseEntity<UserResponse> findByUserName(@PathVariable String userName){
+		return userService.findByUserName(userName);
+		
+	}
+	
 	@GetMapping("/chef")
 	@PreAuthorize("hasRole('CHEF')")
 	public String seeChef() {

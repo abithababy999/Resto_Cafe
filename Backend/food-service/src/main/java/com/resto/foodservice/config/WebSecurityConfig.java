@@ -1,4 +1,4 @@
-package com.resto.inventoryservice.config;
+package com.resto.foodservice.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -22,8 +22,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http.cors();
-		http.csrf().disable().authorizeRequests().antMatchers("/api/inventory/add","/api/inventory/chef/all").hasRole("CHEF")
-		.antMatchers("/api/inventory/update/{id}","/api/inventory/all").hasRole("ADMIN")
+		http.csrf().disable().authorizeRequests().antMatchers("api/foodservice/foodItems","api/foodservice/{id}").permitAll()
+		.antMatchers("api/foodservice/addFoodItem","api/foodservice/updatefooditem/{id}").hasRole("ADMIN")
 		.anyRequest().authenticated().and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		

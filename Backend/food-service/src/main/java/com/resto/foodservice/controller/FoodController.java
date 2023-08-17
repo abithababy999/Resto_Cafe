@@ -49,7 +49,7 @@ public class FoodController {
 		return foodService.addRating(rating);
 	}
 	
-	@GetMapping("/fooItems")
+	@GetMapping("/foodItems")
 	public ResponseEntity<FoodItemResponse> getAllFoodItem(Pageable pageable){
 		return foodService.getAllFood(pageable);
 	}
@@ -58,4 +58,5 @@ public class FoodController {
 	public ResponseEntity<FoodItem> getFoodById(@PathVariable Long id){
 		return foodService.getFoodByid(id);
 	}
+	
 }

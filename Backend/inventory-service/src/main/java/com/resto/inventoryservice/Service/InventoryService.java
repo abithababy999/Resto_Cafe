@@ -1,14 +1,11 @@
 package com.resto.inventoryservice.Service;
 
-import java.time.LocalDateTime;
-import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -23,6 +20,9 @@ import com.resto.inventoryservice.model.InventoryStatus;
 public class InventoryService {
 	
 	@Autowired
+	private RestTemplate restTemplate;
+	
+	@Autowired
 	private InventoryRepository inventoryRepo;
 	
 	
@@ -30,7 +30,7 @@ public class InventoryService {
 
 		Inventory inventory=new Inventory();
 		try {
-			RestTemplate restTemplate = new RestTemplate();
+			
 			ResponseEntity<UserResponse> response =restTemplate.getForEntity("http://localhost:8088/api/auth/chef/"+inventoryRequest.getChef_id(), UserResponse.class);
 			if(response==null) {
 				return ResponseEntity.badRequest().build();
@@ -39,7 +39,7 @@ public class InventoryService {
 			inventory.setItemName(inventoryRequest.getItem_name());
 			inventory.setQuantity(inventoryRequest.getQuantity());
 			inventory.setStatus(InventoryStatus.PENDING);
-			inventory.setTimestamp(LocalDateTime.now());
+		
 		} catch (Exception ex) {
 			return ResponseEntity.badRequest().build();
 		}
@@ -60,15 +60,14 @@ public class InventoryService {
 	}
 	
 	public Page<Inventory> getAllInventory(Pageable pageable){
-//		String sortBy="timeStamp";
-//		Pageable paging = PageRequest.of(pageNum, pageSize, Sort.by(sortBy));
+
 		return inventoryRepo.findAllByOrderByTimestampDesc(pageable);
 	
 		
 	}
+	
 	public Page<Inventory> getAllInventoryOfChef(Long chefId,Pageable paging){
-//		String sortBy="timeStamp";
-//		Pageable paging = PageRequest.of(pageNum, pageSize, Sort.by(sortBy));
+
 		return inventoryRepo.findAllByChefIdOrderByTimestampDesc(chefId,paging);
 	}
 	
