@@ -94,17 +94,17 @@ public class FoodService {
 		FoodItemResponse foodItemResponse=new FoodItemResponse();
 		Page<FoodItem>pagedFoodItems=foodRepository.findAll(page);
 		
-<<<<<<< HEAD
-		List<FoodItem>foodItems=((Streamable<FoodItem>) pagedFoodItems.getContent().stream().map(x->setRatingScore(x))).toList();
-=======
+
 		List<FoodItem>foodItems=pagedFoodItems.getContent().stream().map(x->setRatingScore(x)).toList();
+
+		
 		foodItemResponse.setFooditems(foodItems);
 		foodItemResponse.setTotalElements(pagedFoodItems.getTotalElements());
 		foodItemResponse.setTotalPages(pagedFoodItems.getTotalPages());
 	
 		return ResponseEntity.ok(foodItemResponse);
 		
->>>>>>> 5318aa4cfc740a78136df01971480385ae7a8754
+
 		
 	}
 	

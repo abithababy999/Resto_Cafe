@@ -39,7 +39,7 @@ public class UserService {
 	            user.setPhoneNumber(userRegistration.getPhoneNumber());
 	            user.setPassword(getEncodedPassword(userRegistration.getPassword()));
 //	            user.setPassword(userRegistration.getPassword());
-	            user.setRole("ROLE_USER");
+	            user.setRole("ADMIN");
 	          return ResponseEntity.ok(userRepository.save(user));
 	        }
 	    }
