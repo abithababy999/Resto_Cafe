@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.resto.authservice.dto.UserRegistrationRequest;
+import com.resto.authservice.dto.UserResponse;
 import com.resto.authservice.model.User;
 import com.resto.authservice.repository.UserRepository;
 
@@ -111,6 +112,19 @@ public class UserService {
 	}
 	
 	
+	public ResponseEntity<UserResponse> findByUserName(String userName){
+		Optional<User> temp=userRepository.findByUserName(userName);
+		if(temp.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		User user=temp.get();
+		UserResponse userResponse=new UserResponse();
+		userResponse.setUserName(user.getUserName());
+		userResponse.setRole(user.getRole());
+		userResponse.setPassword(user.getPassword());
+	
+		return ResponseEntity.ok(userResponse);
+	}
 	
 	   private String getEncodedPassword(String password) {
 	        return passwordEncoder.encode(password);

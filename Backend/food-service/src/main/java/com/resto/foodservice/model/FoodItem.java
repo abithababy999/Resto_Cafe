@@ -32,6 +32,7 @@ public class FoodItem {
 	private String image;
 	private String category;
 	private String dietry;
+	private Boolean deleted=false;
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
 	@Transient
@@ -136,6 +137,47 @@ public class FoodItem {
 	}
 	 
 	
+	
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+
+
+
+
+
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+
+
+
+
+
+
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+
+
+
+
+
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+
+
+
+
+
+
 	public void addRating(Rating rating) {
 		ratings.add(rating);
 		rating.setFoodItem(this);

@@ -21,14 +21,14 @@ import com.resto.cartservice.dto.FoodItem;
 import com.resto.cartservice.model.Cart;
 
 @RestController
-@RequestMapping("/api/v1/cart")
+@RequestMapping("/api/cart")
 @CrossOrigin("*")
 public class CartController {
 
 	@Autowired
     private CartService cartServ;
 	
-	@PostMapping
+	@PostMapping("/add")
 	public ResponseEntity<List<CartItemResponse>> getItem(@RequestBody CartRequest cartRequest){
 		List<Cart> carts=cartServ.addCart(cartRequest);
 		
@@ -42,13 +42,13 @@ public class CartController {
 		return ResponseEntity.ok(getResponse(carts));
 	}
 	
-	@DeleteMapping
+	@DeleteMapping("/delete")
 	public ResponseEntity<List<CartItemResponse>> DeleteItem(@RequestBody CartRequest cartRequest){
 		List<Cart> carts=cartServ.removeFromCart(cartRequest);
 		return ResponseEntity.ok(getResponse(carts));
 	}
-	@PutMapping("/")
-	public ResponseEntity<List<CartItemResponse>> getCart(@RequestBody CartRequest cartRequest){
+	@PutMapping("/update")
+	public ResponseEntity<List<CartItemResponse>> updateCart(@RequestBody CartRequest cartRequest){
 		List<Cart> carts=cartServ.updateQuantity(cartRequest);
 		return ResponseEntity.ok(getResponse(carts));
 	}

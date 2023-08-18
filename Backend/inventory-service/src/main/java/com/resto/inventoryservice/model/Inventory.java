@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.CreatedDate;
+
 @Entity
 @Table(name="inventory")
 public class Inventory {
@@ -19,7 +21,8 @@ public class Inventory {
 	private Integer quantity;
 	private Long chefId;
 	private InventoryStatus status;
-	 private LocalDateTime timestamp;
+	@CreatedDate
+	private LocalDateTime timestamp;
 	public Inventory() {
 		
 	}

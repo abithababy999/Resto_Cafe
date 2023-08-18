@@ -9,7 +9,8 @@ public class FoodItem {
 	private String image;
 	private String category;
 	private String dietry;
-	private Short ratingScore;
+	private Double ratingScore;
+	
 	public Long getFoodId() {
 		return foodId;
 	}
@@ -58,10 +59,10 @@ public class FoodItem {
 	public void setDietry(String dietry) {
 		this.dietry = dietry;
 	}
-	public Short getRatingScore() {
+	public Double getRatingScore() {
 		return ratingScore;
 	}
-	public void setRatingScore(Short ratingScore) {
+	public void setRatingScore(Double ratingScore) {
 		this.ratingScore = ratingScore;
 	}
 }
