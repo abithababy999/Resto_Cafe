@@ -1,0 +1,7 @@
+@use "sass:map";
+$--theme-primary: --theme-primary;
+$--theme-text:--theme-text;
+$--theme-secondary:--theme-secondary;
+$--theme-highlight:--theme-highlight;
+$theme-map-light: ( $--theme-primary: #E0D8CD, $--theme-text: #231F20, $--theme-secondary: #E5D8C7);
+$theme-map-dark: ( $--theme-primary: #252836, $--theme-text: #FCFCFC, $--theme-secondary: #1F1D2B,$--theme-highlight:#DB7462);

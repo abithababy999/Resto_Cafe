@@ -3,6 +3,12 @@ html {
     box-sizing: border-box;
   }
   
+  :root {
+    --theme-primary: #252836;
+    --theme-text: #FCFCFC;
+    --theme-secondary: #1F1D2B;
+    --theme-highlight:#EA7C69;
+}
   *,
   *::before,
   *::after {
@@ -16,6 +22,7 @@ html {
   }
 
   body{
-      background-color: pink;
+    background-color: var(--theme-primary);
   }
+
   
