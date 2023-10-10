@@ -19,15 +19,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-    	http.cors();
-		http.csrf().disable().authorizeRequests().antMatchers("/api/inventory/add","/api/inventory/chef/all").hasRole("CHEF")
-		.antMatchers("/api/inventory/update/{id}","/api/inventory/all").hasRole("ADMIN")
-		.anyRequest().authenticated().and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
-		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		
-		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-        // Other security configurations
-    }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+	    http.cors().and().csrf().disable()
+	        .authorizeRequests()
+	            .antMatchers("/api/order", "/api/order/{id}/all").hasRole("USER")
+	            .antMatchers("api/order/{id}/cartitems").hasAnyRole("USER","CHEF")
+	            .antMatchers("/api/order/all", "/api/inventory/all", "/api/order/chef/{id}").hasRole("CHEF")
+	            .anyRequest().authenticated()
+	            .and()
+	        .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
+	        .and()
+	        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	    
+	    http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+	    // Other security configurations
+	}
+
 }

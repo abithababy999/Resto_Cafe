@@ -1,0 +1,113 @@
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal */
+.modal {
+  background-color: var(--theme-secondary);
+  color: var(--theme-text);
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 500px;
+  width: 80%; /* Adjust width as needed */
+  .order-details-scrollable{
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 10px;
+  }
+
+  h2 {
+    font-size: 24px;
+    margin: 0;
+    grid-column: span 2; /* Span both columns */
+  }
+
+  .modal-order-detail-container {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr; /* Adjust column layout as needed */
+
+
+  
+    p {
+      font-size: 16px;
+      margin: 0;
+    }
+  }
+
+  /* Add styling for other elements using the theme variables */
+  .order-item {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+
+    .food-image {
+      max-width: 60px;
+      max-height: 60px;
+      margin-right: 10px;
+      border-radius: 5px;
+    }
+
+    .order-item-info {
+      h3 {
+        font-size: 18px;
+        margin: 0;
+      }
+
+      p {
+        font-size: 14px;
+        margin: 0;
+      }
+    }
+  }
+
+  label {
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  .chef-order-select {
+    font-size: 16px;
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+
+  button {
+    background-color: var(--theme-highlight);
+    color: var(--theme-text);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+
+    &:hover {
+      // background-color: darken(var(--theme-highlight), 10%);
+    }
+
+    &.close-button {
+      background-color: transparent;
+      color: var(--theme-primary);
+
+      &:hover {
+        color: var(--theme-highlight);
+      }
+    }
+  }
+
+  .modal-btn-container{
+    display: flex;
+  align-items: center;
+  justify-content: space-around;
+  }
+}

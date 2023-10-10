@@ -1,6 +1,7 @@
 package com.resto.authservice.service;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class UserService {
 	
 	public ResponseEntity<User> newUserRegister(UserRegistrationRequest userRegistration)
 	{
+		System.out.println(userRegistration);
 	
 		 Optional<User> opt = userRepository.findByUserName(userRegistration.getUserName());
 	        if(opt.isPresent()){
@@ -38,16 +40,17 @@ public class UserService {
 	            user.setFirstName(userRegistration.getFirstName());
 	            user.setLastName(userRegistration.getLastName());
 	            user.setPhoneNumber(userRegistration.getPhoneNumber());
-	            user.setPassword(getEncodedPassword(userRegistration.getPassword()));
+	            System.out.println(userRegistration.getUserPassword());
+	            user.setPassword(getEncodedPassword(userRegistration.getUserPassword()));
 //	            user.setPassword(userRegistration.getPassword());
-	            user.setRole("ADMIN");
+	            user.setRole("ROLE_USER");
 	          return ResponseEntity.ok(userRepository.save(user));
 	        }
 	    }
 	
-	public ResponseEntity<User> newChefRegister(UserRegistrationRequest userRegistration)
+	public ResponseEntity<User> userAuthorRegister(UserRegistrationRequest userRegistration,String role)
 	{
-		System.out.println(userRegistration);
+	
 	
 		 Optional<User> opt = userRepository.findByUserName(userRegistration.getUserName());
 	        if(opt.isPresent()){
@@ -60,9 +63,12 @@ public class UserService {
 	            user.setFirstName(userRegistration.getFirstName());
 	            user.setLastName(userRegistration.getLastName());
 	            user.setPhoneNumber(userRegistration.getPhoneNumber());
-	           user.setPassword(getEncodedPassword(userRegistration.getPassword()));
-	            user.setPassword(userRegistration.getPassword());
-	            user.setRole("ROLE_CHEF");
+	           user.setPassword(getEncodedPassword(userRegistration.getUserPassword()));
+	           user.setRole("ROLE_CHEF");
+	           if(role.equals("ADMIN")) {
+	        	   user.setRole("ROLE_ADMIN"); 
+	           }
+	          
 	          return ResponseEntity.ok(userRepository.save(user));
 	        }
 	    }
@@ -100,6 +106,8 @@ public class UserService {
 
 	}
 	
+	
+	
 	public ResponseEntity<User> findChef(Long id){
 		Optional<User> temp=userRepository.findById(id);
 		if(temp.isEmpty()) {
@@ -125,6 +133,13 @@ public class UserService {
 	
 		return ResponseEntity.ok(userResponse);
 	}
+	
+	public ResponseEntity<List<User>> getAllAdminAndChef(){
+		return ResponseEntity.ok(userRepository.findAllAdminsAndChefs());
+	}
+	
+	
+	
 	
 	   private String getEncodedPassword(String password) {
 	        return passwordEncoder.encode(password);

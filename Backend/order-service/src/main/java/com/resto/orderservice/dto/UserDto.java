@@ -20,21 +20,61 @@ public class UserDto implements UserDetails {
 	
 	private String userName;
 	private String password;
-    private String role;
-    
-    
-    
-  public UserDto() {
+	private String phoneNumber;
+	private String firstName;
+	private String lastName;
+	
+	  public UserDto() {
+		  
+	  }
 	  
-  }
-  
 
-	public UserDto(String userName, String password, String role) {
-	super();
-	this.userName = userName;
-	this.password = password;
-	this.role = role;
-}
+    public UserDto(String userName, String password, String phoneNumber, String firstName, String lastName,
+			String role) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.phoneNumber = phoneNumber;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.role = role;
+	}
+
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	private String role;
+    
+    
+    
+
 
 
 	public void setUserName(String userName) {

@@ -10,7 +10,24 @@ public class OrderRequest {
 	private List<CartItem> cartItems;
 	private Boolean dineIn;
 	private Boolean paid;
+	private Double totalAmount;
 	
+	public Double getTotalAmount() {
+		return totalAmount;
+	}
+
+
+
+
+
+	public void setTotalAmount(Double totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+
+
+
+
 	public OrderRequest() {
 		
 	}

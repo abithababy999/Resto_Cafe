@@ -1,0 +1,29 @@
+/* Loading.module.scss */
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--theme-primary);
+  }
+  
+  .loading-spinner {
+    border: 8px solid var(--theme-secondary);
+    border-top: 8px solid var(--theme-highlight);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1.5s linear infinite, fadeIn 1s ease-in-out infinite;
+    opacity: 0;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  @keyframes fadeIn {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+  

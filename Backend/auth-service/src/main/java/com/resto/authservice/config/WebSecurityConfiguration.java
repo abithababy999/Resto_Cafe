@@ -51,7 +51,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		httpSecurity.cors();
 		httpSecurity.csrf().disable().authorizeRequests()
 				.antMatchers("/api/auth/authenticate", "/api/auth/registerNewUser","/api/auth/chef/{id}").permitAll()
-				.antMatchers("/api/auth/registerNewChef", "/api/auth/deleteChef/{userName}","/api/auth/admin").hasRole("ADMIN")
+				.antMatchers("/api/auth/auth-adder", "/api/auth/deleteChef/{userName}","/api/auth/admin","/api/auth/authority-user").hasRole("ADMIN")
 				.antMatchers("/api/auth/changePassword","/api/auth/chefanduser").hasAnyRole("USER", "CHEF").anyRequest().authenticated().and()
 				.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);

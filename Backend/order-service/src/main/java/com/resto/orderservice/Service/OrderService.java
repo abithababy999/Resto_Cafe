@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.resto.orderservice.Repository.OrderItemRepository;
 import com.resto.orderservice.Repository.OrderRepository;
 import com.resto.orderservice.dto.CartItem;
 import com.resto.orderservice.dto.FoodItem;
@@ -25,6 +26,9 @@ public class OrderService {
 	@Autowired
 	private OrderRepository orderRepo;
 	
+	@Autowired
+	private OrderItemRepository oir;
+	
 	public Order createOrder(OrderRequest orderRequest) {
 		Order order=new Order();
 		order.setCustomerId(orderRequest.getCustomerId());
@@ -34,6 +38,7 @@ public class OrderService {
 		order.setPaid(orderRequest.getPaid());
 		order.setTimeStamp(LocalDateTime.now());
 		order.setStatus(OrderStatus.PENDING);
+		order.setTotalAmount(orderRequest.getTotalAmount());
 	
 		order=orderRepo.save(order);
 		clearCart(orderRequest.getCustomerId());
@@ -43,16 +48,23 @@ public class OrderService {
 	}
 	
 	public Page<Order> getOrdersOfUser(Long userId,Pageable page){
-		return orderRepo.findAllByCustomerIdOrderByTimestampDesc(userId, page);
+		return orderRepo.findAllByCustomerIdOrderByTimeStampDesc(userId, page);
 	}
 	
 	public Page<Order> getOrdersForChef(Pageable page){
 		return orderRepo.findAllByChefIdIsNull(page);
 	}
+	public Page<Order> getOrdersForChefById(Long id,Pageable page){
+		return orderRepo.findAllByChefId(id,page);
+	}
+	
+	
 	
 	public List<Order> getActiveOrdersForChef(Long chefId,OrderStatus status){
 		return orderRepo.findAllByChefIdAndStatus(chefId, status);
 	}
+	
+	
 	public Order updateOrderStatus(Long id,OrderStatus status,Long chefId) {
 		Optional<Order> temp=orderRepo.findById(id);
 		if(temp.isEmpty())
@@ -69,6 +81,10 @@ public class OrderService {
 		if(temp.isEmpty())
 			return null;
 		return temp.get();
+	}
+	
+	public List<OrderItem> getAllOrderItem(Long id){
+		return oir.findByOrder_Id(id);
 	}
 	
 	private List<OrderItem> convertCartToOrder(List<CartItem> unCheckedItems,Order order){

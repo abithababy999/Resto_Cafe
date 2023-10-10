@@ -1,8 +1,10 @@
 package com.resto.authservice.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.resto.authservice.dto.JwtRequest;
@@ -39,13 +42,21 @@ public class UserController {
 		return userService.newUserRegister(userRegistrationRequest);
 	}
 
-	@PostMapping("/registerNewChef")
+	
+	
+	
+	@PostMapping("/auth-adder")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<User> registerNewChef(@RequestBody UserRegistrationRequest userRegistrationRequest) {
-		
-		return userService.newChefRegister(userRegistrationRequest);
+	public ResponseEntity<User> registerNewAuthor(
+	    @RequestBody UserRegistrationRequest userRegistrationRequest,
+	    @RequestParam("role") String role
+	) {
+	  
+
+	    return userService.userAuthorRegister(userRegistrationRequest, role);
 	}
 
+	
 	@DeleteMapping("/deleteChef/{userName}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<String> removeChef(@PathVariable String userName) {
@@ -74,6 +85,18 @@ public class UserController {
 		return userService.findByUserName(userName);
 		
 	}
+	
+	
+	@GetMapping("/authority-user")
+    public ResponseEntity<List<User>> getAllAdminAndChef() {
+        try {
+           
+            return userService.getAllAdminAndChef();
+        } catch (Exception e) {
+            // Handle the exception and return an error response
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
 	
 	@GetMapping("/chef")
 	@PreAuthorize("hasRole('CHEF')")

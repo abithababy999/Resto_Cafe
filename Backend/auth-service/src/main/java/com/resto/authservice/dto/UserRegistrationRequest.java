@@ -6,19 +6,19 @@ public class UserRegistrationRequest {
 	    private String userName;
         private String firstName;
 	    private String lastName;
-	    private String password;
+	    private String userPassword;
 	    private String phoneNumber;
 	    
 	    public UserRegistrationRequest() {
 	    	
 	    }
-		public UserRegistrationRequest(String userName, String firstName, String lastName, String password,
+		public UserRegistrationRequest(String userName, String firstName, String lastName, String userPassword,
 				String phoneNumber) {
 			super();
 			this.userName = userName;
 			this.firstName = firstName;
 			this.lastName = lastName;
-			this.password = password;
+			this.userPassword = userPassword;
 			this.phoneNumber = phoneNumber;
 		}
 		public String getUserName() {
@@ -39,11 +39,11 @@ public class UserRegistrationRequest {
 		public void setLastName(String lastName) {
 			this.lastName = lastName;
 		}
-		public String getPassword() {
-			return password;
+		public String getUserPassword() {
+			return userPassword;
 		}
-		public void setPassword(String password) {
-			this.password = password;
+		public void setUserPassword(String password) {
+			this.userPassword = password;
 		}
 		public String getPhoneNumber() {
 			return phoneNumber;

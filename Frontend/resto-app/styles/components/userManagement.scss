@@ -1,0 +1,154 @@
+// Variables
+
+  
+  // User Management Container
+
+  .user-management-container {
+    margin: 20px;
+    padding: 20px;
+    background-color: var(--theme-secondary);
+    border-radius: 5px;
+
+    .user-management-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1em;
+    }
+  
+    & button {
+        background-color: var(--theme-highlight);
+        color: var(--theme-text);
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+      
+        &:hover {
+        //   background-color: darken(var(--theme-highlight), 10%);
+        }
+      }
+    .user-management-title {
+      font-size: 24px;
+      color: var(--theme-text);
+      margin-bottom: 10px;
+    }
+  
+    .user-management-table {
+      width: 100%;
+      border-collapse: collapse;
+  
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid var(--theme-primary);
+        text-align: left;
+        color: var(--theme-text);
+      }
+  
+      th {
+        background-color: var(--theme-primary);
+        font-weight: bold;
+      }
+  
+    
+  
+      tr:hover {
+        background-color: var(--theme-highlight);
+      }
+    }
+  }
+  
+  
+  // User Management Modal
+  .user-management-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  
+    .user-management-modal-content {
+      background-color: var(--theme-secondary);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      margin: 0 auto;
+  
+      h2 {
+        font-size: 1.2rem;
+        color: var(--theme-text);
+        margin-bottom: 20px;
+      }
+  
+      .user-management-modal-form {
+        display: flex;
+        flex-direction: column;
+  
+        .user-management-modal-form-group {
+          margin-bottom: 10px;
+  
+          label {
+            font-size: 1rem;
+            color: var(--theme-text);
+            margin-bottom: 5px;
+          }
+  
+          input[type="text"],
+          input[type="password"],
+          select {
+            width: 100%;
+            padding: 8px;
+            background-color: var(--theme-primary);
+            color: var(--theme-text);
+            border: 1px solid var(--theme-secondary);
+            border-radius: 5px;
+            font-size: 1rem;
+          }
+  
+          select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M7 10l5 5 5-5z' fill='var(--theme-text)'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right center;
+          }
+        }
+  
+        & button[type="submit"] {
+          background-color: var(--theme-highlight);
+          color: var(--theme-text);
+          border: none;
+          border-radius: 5px;
+          padding: 10px;
+          cursor: pointer;
+          font-size: 1rem;
+  
+          &:hover {
+            // background-color: darken(var(--theme-highlight), 10%);
+          }
+        }
+      }
+  
+      .user-management-modal-close {
+        background-color: transparent;
+        color: var(--theme-text);
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-top: 10px;
+  
+        &:hover {
+          color: var(--theme-highlight);
+        }
+      }
+    }
+  }
+  

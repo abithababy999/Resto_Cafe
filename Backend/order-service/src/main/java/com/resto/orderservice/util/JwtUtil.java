@@ -48,11 +48,14 @@ public class JwtUtil {
     public Date getExpirationDateFromToken(String token) {
         return getClaimFromToken(token, Claims::getExpiration);
     }
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserDetails userDetails,String phoneNumber,String firstName,String lastName,Long userId) {
 
         Map<String, Object> claims = new HashMap<>();
         claims.put("roles", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
-        
+        claims.put("phoneNumber", phoneNumber);
+        claims.put("userId",userId );
+        claims.put("lastName", lastName);
+        claims.put("firstName", firstName);
         return createToken(claims, userDetails);
 
        

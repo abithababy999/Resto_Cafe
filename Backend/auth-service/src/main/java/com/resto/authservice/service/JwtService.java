@@ -48,13 +48,21 @@ public class JwtService implements UserDetailsService {
 		String userName = jwtRequest.getUserName();
 		
 		String userPassword = jwtRequest.getUserPassword();
+	
 		authenticate(userName, userPassword);
+		Optional<User> temp=userRepository.findByUserName(userName);
+		if(temp.isEmpty()) {
+			throw new Exception("INVALID_CREDENTIALS");
+		}
+		
+		
          
 		UserDetails userDetails = loadUserByUsername(userName);
-		String newGeneratedToken = jwtUtil.generateToken(userDetails);
+		
+		String newGeneratedToken = jwtUtil.generateToken(userDetails,temp.get().getPhoneNumber(),temp.get().getFirstName(),temp.get().getLastName(),temp.get().getUserid());
 
-		User user = userRepository.findByUserName(userName).get();
-		return new JwtResponse(user, newGeneratedToken);
+		
+		return new JwtResponse(newGeneratedToken);
 	}
 
 	private void authenticate(String userName, String userPassword) throws Exception {

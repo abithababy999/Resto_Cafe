@@ -10,8 +10,9 @@ import com.resto.orderservice.model.Order;
 import com.resto.orderservice.model.OrderStatus;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
-	Page<Order> findAllByCustomerIdOrderByTimestampDesc(Long CustomerId,Pageable pageable);
+	Page<Order> findAllByCustomerIdOrderByTimeStampDesc(Long CustomerId,Pageable pageable);
 	List<Order> findAllByChefIdAndStatus(Long chefId,OrderStatus status);
 	Page<Order> findAllByChefIdIsNull(Pageable pageable);
+	Page<Order> findAllByChefId(Long id,Pageable pageable);
 	
 }

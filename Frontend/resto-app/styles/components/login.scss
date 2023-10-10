@@ -1,0 +1,83 @@
+/* Login Component Styles */
+
+.page-container {
+  display: flex;
+  justify-content: center; /* Center the login container horizontally */
+  align-items: center; /* Center the login container vertically */
+  height: 100vh; /* Use the full viewport height */
+}
+
+.login-container {
+  background-color: var(--theme-secondary);
+  color: var(--theme-text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+
+  .title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .error {
+    color: red;
+    margin-bottom: 10px;
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+
+    .form-group {
+      margin-bottom: 15px;
+
+      label {
+        font-weight: bold;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: var(--theme-secondary);
+        color: var(--theme-text);
+        border: 1px solid var(--theme-primary);
+      }
+    }
+
+    .submit-button {
+      background-color: var(--theme-highlight);
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        // background-color: darken(var(--theme-highlight), 10%);
+      }
+    }
+  }
+
+  .toggle-text {
+    margin-top: 20px;
+    font-size: 14px;
+
+    .toggle-button {
+      background: none;
+      border: none;
+      color: var(--theme-highlight);
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

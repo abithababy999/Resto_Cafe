@@ -1,0 +1,151 @@
+/* OrderItemCard Styles */
+
+
+
+
+
+.order-items-container{
+  padding: 2em;
+}
+// Define the theme variables
+
+
+// Style the table
+.order-item-table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 900px; // Adjust the maximum width as needed
+  margin: 0 auto;
+  background-color: var(--theme-secondary);
+  border: 1px solid var(--theme-primary);
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  th, td {
+    padding: 1em;
+    text-align: left;
+    border-bottom: 1px solid var(--theme-primary);
+  }
+
+  th {
+    background-color: var(--theme-primary);
+    color: var(--theme-text);
+  }
+
+  tr {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  
+    &:hover {
+      background-color: var(--theme-highlight);
+    
+    }
+  }
+}
+
+.order-item-card {
+    background-color: var(--theme-secondary);
+
+    color: var(--theme-text);
+    padding: 1em;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1em;
+  
+  
+    h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+  
+    p {
+      margin: 5px 0;
+    }
+  
+    
+    div {
+ 
+  
+      h4 {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+  
+      ul {
+        list-style: none;
+        padding: 0;
+  
+        li {
+          font-size: 14px;
+          margin-bottom: 5px;
+        }
+      }
+    }
+  
+    .status-label {
+      font-weight: bold;
+    }
+  
+    .status {
+      color: var(--theme-highlight);
+      font-weight: bold;
+    }
+  
+    .total-amount {
+      font-weight: bold;
+    }
+  
+    .paid-label {
+      font-weight: bold;
+    }
+  
+    .dine-in-label {
+      font-weight: bold;
+    }
+  
+    .yes {
+      color: #0bb20c;
+    }
+  
+    .no {
+      color: #ff3636;
+    }
+  }
+
+
+  .order-status-item{
+    border-radius: 5px;
+    text-align: center;
+    text-transform: lowercase;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 0.5em;
+    
+  }
+  /* Add your desired background colors for each status */
+.order-status-pending {
+  background-color: rgba(228, 109, 109,0.2);
+  color:#e46d6d;
+}
+
+.order-status-preparing {
+  background-color: rgba(157, 104, 241,0.2);
+  color: #9d68f1;
+}
+.order-status-cooked {
+  background-color: rgba(255, 255, 0,0.2);
+color:rgb(255,255,0);
+}
+
+.order-status-delivered {
+  background-color: rgba(51, 214, 159, 0.2);
+  color: #33d7a0;
+}
+tr:hover .order-status-item {
+  color: white;
+}
+
+
+/* Add more classes for other status colors as needed */

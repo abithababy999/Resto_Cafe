@@ -107,6 +107,23 @@ public class FoodService {
 
 		
 	}
+	public ResponseEntity<FoodItemResponse> getAllFoodByAvailability(Pageable page){
+		FoodItemResponse foodItemResponse=new FoodItemResponse();
+		Page<FoodItem>pagedFoodItems=foodRepository.findAll(page);
+		
+
+		List<FoodItem>foodItems=pagedFoodItems.getContent().stream().map(x->setRatingScore(x)).toList();
+
+		
+		foodItemResponse.setFooditems(foodItems);
+		foodItemResponse.setTotalElements(pagedFoodItems.getTotalElements());
+		foodItemResponse.setTotalPages(pagedFoodItems.getTotalPages());
+	
+		return ResponseEntity.ok(foodItemResponse);
+		
+
+		
+	}
 	
 	
 	public ResponseEntity<FoodItemResponse> getFoodByCategory(Pageable page,String category){
@@ -141,6 +158,16 @@ Page<FoodItem>pagedFoodItems=foodRepository.findAllByCategory(page, category);
 		return foodItem;
 		
 	}
+	
+	  public ResponseEntity<List<FoodItem>> searchFoodItems(String searchTerm) {
+	        List<FoodItem> foundItems = foodRepository.searchFoodItems(searchTerm);
+
+	        if (foundItems.isEmpty()) {
+	        	return ResponseEntity.notFound().build();
+	        }
+
+	        return ResponseEntity.ok(foundItems);
+	    }
 	
 
 }
