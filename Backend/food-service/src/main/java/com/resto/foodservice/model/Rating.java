@@ -20,25 +20,39 @@ public class Rating {
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="food_item_id")
 	private FoodItem foodItem;
+	private Long orderId;
 	public Rating()
 	{
 	
 	}
 		
 
-	public Rating(Long id, Double ratingScore, LocalDateTime ratingDate, FoodItem foodItem) {
+	public Rating(Long id, Double ratingScore, LocalDateTime ratingDate, FoodItem foodItem,Long orderId) {
 		super();
 		this.id = id;
 		this.ratingScore = ratingScore;
 		this.ratingDate = ratingDate;
 		this.foodItem = foodItem;
+		this.orderId=orderId;
 	}
+	
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public Long getOrderId() {
+		return orderId;
+	}
+
+
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
+
+
 	public Double getRatingScore() {
 		return ratingScore;
 	}

@@ -14,6 +14,11 @@
   border-bottom-left-radius: 3px;
   color:#ffffff;
 
+  & h2{
+    font-size: 1.5rem;
+    margin-left: 1em;
+    margin-top: 0.4em;
+  }
   .modal-checkout {
     background-color: var(--theme-secondary);
     padding: 20px;

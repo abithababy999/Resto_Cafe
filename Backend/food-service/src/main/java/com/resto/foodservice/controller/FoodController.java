@@ -68,4 +68,8 @@ public class FoodController {
         return foodService.searchFoodItems(searchTerm);
     }
 	
+	@GetMapping("/food/{foodId}/order/{orderId}")
+	public ResponseEntity<Rating> getRatingOfOrder(@PathVariable Long foodId,@PathVariable Long orderId){
+		return foodService.findRating(foodId, orderId);
+	}
 }

@@ -62,7 +62,7 @@ const HomeHeader = () => {
   return (
     <header className="home-header">
       <div className="greeter-container">
-        <h2>Hello {user ? capitalize(user.firstName) : ''}</h2>
+        <h2>Hello {user ? capitalize(user.firstName) : 'Guest'}</h2>
         <div className="date-header">{formatDate(today)}</div>
       </div>
       {(user && user.role === "ROLE_USER") || !user ? (

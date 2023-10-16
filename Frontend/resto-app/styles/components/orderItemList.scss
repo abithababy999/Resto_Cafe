@@ -44,6 +44,16 @@
   }
 }
 
+.order-item{
+  & img{
+    width:60px;
+    height:60px;
+  }
+}
+.order-item-info{
+  width:230px;
+}
+
 .order-item-card {
     background-color: var(--theme-secondary);
 

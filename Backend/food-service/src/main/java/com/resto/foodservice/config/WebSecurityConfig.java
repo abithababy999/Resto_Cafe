@@ -30,6 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     	http.cors();
 		http.csrf().disable().authorizeRequests().antMatchers("/api/foodservice/foodItems","/api/foodservice/{id}","/api/foodservice/food/search").permitAll()
 		.antMatchers("/api/foodservice/addFoodItem","/api/foodservice/updatefooditem/{id}").hasRole("ADMIN")
+		.antMatchers("/api/foodservice/food/{foodId}/order/{orderId}").hasRole("USER")
 		.anyRequest().authenticated().and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		

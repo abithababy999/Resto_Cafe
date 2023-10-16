@@ -93,6 +93,7 @@ const OrderItem = ({ orderItem, user }) => {
     }
   };
 
+
   return (
     <>
       <tr className={`order-item-card ${getStatusClassName()}`} onClick={openModal}>
@@ -136,6 +137,7 @@ const OrderItem = ({ orderItem, user }) => {
                     <h3>{cartItem.foodName}</h3>
                     <p>Quantity: {cartItem.quantity}</p>
                   </div>
+                  
                 </div>
               ))}
               </div>

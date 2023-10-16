@@ -9,6 +9,23 @@ html {
     --theme-text: #FCFCFC;
     --theme-secondary: #1F1D2B;
     --theme-highlight:#EA7C69;
+
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: var(--theme-highlight);
+      border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--theme-highlight);
+    }
+    
+    ::-webkit-scrollbar-track {
+      background:var(--theme-secondary);
+    }
 }
   *,
   *::before,

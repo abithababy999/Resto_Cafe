@@ -14,7 +14,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height:100px;
+    height:120px;
     & h4{
       font-size: 1rem;
       font-weight: 800;
@@ -22,25 +22,41 @@
       margin-bottom: 0.75em;
  
     }
-    & .food-item-description,& .food-item-price{
-      font-size: 0.85rem;
-      color:#e1e7ec;
-      font-weight: 500;
-      text-align: center;
-      margin-bottom:0.5em;
-      max-height: 3em; /* Set a maximum height for description */
-      overflow: hidden;
-      text-overflow: ellipsis; /* Add ellipsis for overflowed text */
-      white-space: nowrap; 
-      width:80%;
+  & .food-item-description, & .food-item-price {
+  font-size: 0.85rem;
+  color: #e1e7ec;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 0.5em;
+  max-height: 3em; /* Set a maximum height for description */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis for overflowed text */
+  white-space: nowrap;
+  width: 80%;
+  max-width: 200px;
+  position: relative; /* Add position relative for the parent element */
 
-  max-width: 200px; 
-    }
+  
+}
 
     & .food-item-price{
       letter-spacing: 2px;
       font-size: 0.85rem;
       font-weight:700 ;
+    }
+
+    & .food-item-dietry{
+     padding:0.5em 1.5em;
+     border-radius: 3px;
+    
+     font-size: 0.5rem;
+     &.non{
+     
+      background-color:rgba(248, 82, 82, 0.363) ;
+     }
+     &.veg{
+      background-color: rgba(98, 255, 13, 0.1);
+     }
     }
   }
   
@@ -50,11 +66,29 @@
     padding: 20px;
     background-color: var(--theme-secondary);
     display:flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
     color:var(--theme-text);
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    &.disabled ::before{
+      content:"";
+      position:absolute;
+      height: 100%;
+      width: 100%;
+      max-width: 300px; 
+      top:0;
+      left:0;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    &:hover{
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    }
 
 
     .food-item-image{
@@ -75,6 +109,7 @@
 .food-item-card button {
   background-color: var(--theme-highlight);
   color: white;
+  width: 100%;
   border: none;
   padding: 1em 1.5em;
   border-radius: 5px;

@@ -152,6 +152,14 @@ Page<FoodItem>pagedFoodItems=foodRepository.findAllByCategory(page, category);
 	}
 	
 	
+	public ResponseEntity<Rating> findRating(Long foodId,Long orderId) {
+		Optional<Rating>temp=ratingRepository.findByOrderIdAndFoodItem_foodId(orderId, foodId);
+		if(temp.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+	return ResponseEntity.ok(temp.get());
+	}
+	
 	private FoodItem setRatingScore(FoodItem foodItem){
 		Double average=foodItem.getRatings().stream().mapToDouble(Rating::getRatingScore).average().orElse(0.0);
 		foodItem.setRatingScore(average);
